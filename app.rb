@@ -24,7 +24,7 @@ class WordGuesserApp < Sinatra::Base
   get '/new' do
     erb :new
   end
-  
+
   post '/create' do
     # NOTE: don't change next line - it's needed by autograder!
     word = params[:word] || WordGuesserGame.get_random_word
@@ -40,6 +40,18 @@ class WordGuesserApp < Sinatra::Base
   post '/guess' do
     letter = params[:guess].to_s[0]
     ### YOUR CODE HERE ###
+    @game.guess(letter)
+    state = @game.check_win_or_lose
+    # puts state
+    # puts state == :win
+    # puts state == :lose
+    # puts state == :play
+    if state == :win
+      redirect :win
+    elsif state == :lose
+      redirect :lose
+    end
+
     redirect '/show'
   end
   
