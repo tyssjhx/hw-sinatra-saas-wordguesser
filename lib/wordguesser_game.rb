@@ -50,13 +50,21 @@ class WordGuesserGame
     word = @word.downcase
     guesses = @guesses.downcase
 
+    guessall = 1
     for i in 0...word.length
       if !(guesses.include? word[i,1])
         guessall = 0
+        break;
       end
     end
-    guessall = 1
-    
+    if (guessall == 0) && ((@guesses.length + @wrong_guesses.length) >= 7)
+      return :lose
+    elsif guessall == 0
+      return :play
+    else
+      return :win
+    end
+
   end
 
   def word
