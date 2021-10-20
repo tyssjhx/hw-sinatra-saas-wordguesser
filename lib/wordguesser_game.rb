@@ -5,30 +5,35 @@ class WordGuesserGame
 
 
   def guess(char)
+    @text = ""
+
     if char == nil
       raise ArgumentError
     end
     capchar = char.capitalize
     dwnchar = char.downcase
     validchars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+
     if (char.empty?) || !(validchars.include? capchar) 
       raise ArgumentError
     end
 
     if (@word.include? dwnchar) || (@word.include? capchar)
       if (@guesses.include? dwnchar) || (@guesses.include? capchar)
+        @text = "You have already used that letter"
         return false
       else
         @guesses = @guesses + char
       end
     else
       if (wrong_guesses.include? dwnchar) || (@wrong_guesses.include? capchar)
+        @text = "You have already used that letter"
         return false
       else
         @wrong_guesses = @wrong_guesses + char
       end
     end
-
     return true
   end
   # Get a word from remote "random word" service
@@ -79,6 +84,9 @@ class WordGuesserGame
     return @wrong_guesses
   end
 
+  def text
+    return @text
+  end
   def initialize(word)
     @word = word
     @guesses = ""
