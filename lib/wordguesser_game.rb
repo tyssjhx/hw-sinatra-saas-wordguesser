@@ -7,13 +7,21 @@ class WordGuesserGame
   def guess(char)
     @text = ""
 
+    # begin
+    #   if char == nil
+    #     raise ArgumentError
+    #   end
+    # rescue =>e
+    #   puts @text = "Invalid guess."
+    #   return false
+    # end
     if char == nil
       raise ArgumentError
     end
+
     capchar = char.capitalize
     dwnchar = char.downcase
     validchars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
 
     if (char.empty?) || !(validchars.include? capchar) 
       raise ArgumentError
@@ -86,6 +94,10 @@ class WordGuesserGame
 
   def text
     return @text
+  end
+
+  def set_text(str)
+    @text = str
   end
   def initialize(word)
     @word = word

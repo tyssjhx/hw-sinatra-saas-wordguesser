@@ -31,6 +31,7 @@ class WordGuesserApp < Sinatra::Base
     # NOTE: don't change previous line - it's needed by autograder!
 
     @game = WordGuesserGame.new(word)
+    puts @game.word
     redirect '/show'
   end
   
@@ -40,8 +41,14 @@ class WordGuesserApp < Sinatra::Base
   post '/guess' do
     letter = params[:guess].to_s[0]
     ### YOUR CODE HERE ###
-    @game.guess(letter)
+    begin
+      @game.guess(letter)
+    rescue =>e
+      @game.set_text("Invalid guess.")
+    end
+    
     state = @game.check_win_or_lose
+    puts state
     # puts state
     # puts state == :win
     # puts state == :lose
