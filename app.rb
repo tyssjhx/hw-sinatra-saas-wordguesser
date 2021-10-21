@@ -31,7 +31,6 @@ class WordGuesserApp < Sinatra::Base
     # NOTE: don't change previous line - it's needed by autograder!
 
     @game = WordGuesserGame.new(word)
-    puts @game.word
     redirect '/show'
   end
   
@@ -48,14 +47,15 @@ class WordGuesserApp < Sinatra::Base
     end
     
     state = @game.check_win_or_lose
-    puts state
     # puts state
     # puts state == :win
     # puts state == :lose
     # puts state == :play
     if state == :win
+      @game.set_legal(1)
       redirect :win
     elsif state == :lose
+      @game.set_legal(1)
       redirect :lose
     end
 
@@ -71,14 +71,20 @@ class WordGuesserApp < Sinatra::Base
     ### YOUR CODE HERE ###
     erb :show # You may change/remove this line
   end
-  
+
   get '/win' do
     ### YOUR CODE HERE ###
+    if(@game.legal == 0)
+      redirect '/show'
+    end
     erb :win # You may change/remove this line
   end
   
   get '/lose' do
     ### YOUR CODE HERE ###
+    if(@game.legal == 0)
+      redirect '/show'
+    end
     erb :lose # You may change/remove this line
   end
   

@@ -6,7 +6,6 @@ class WordGuesserGame
 
   def guess(char)
     @text = ""
-
     # begin
     #   if char == nil
     #     raise ArgumentError
@@ -99,10 +98,21 @@ class WordGuesserGame
   def set_text(str)
     @text = str
   end
+
+  def legal
+    return @legal
+  end
+
+  def set_legal(num)
+    @legal = num
+  end
+
+
   def initialize(word)
     @word = word
     @guesses = ""
     @wrong_guesses = ""
+    @legal = 0
   end
 
   # You can test it by installing irb via $ gem install irb
